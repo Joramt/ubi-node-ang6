@@ -9,11 +9,12 @@ const mongoDbPort = '27017';
 const mongooseOptions = { useNewUrlParser : true };
 
 function getMongoDbUrl(){
-  return mongoDbProtocol + '://' + mongoDbHostName + ':' + mongoDbPort;
+  return `${mongoDbProtocol}://${mongoDbHostName}:${mongoDbPort}`
 }
 
 function connectTo(collection){
-  var mongoDbCollection = getMongoDbUrl() + '/' + collection;
+  var mongoDbCollection = `${getMongoDbUrl()}/${collection}`;
+  
   return mongoose.connect(mongoDbCollection, mongooseOptions);
 }
 

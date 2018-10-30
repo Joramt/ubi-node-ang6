@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import mongoose from 'mongoose';
 
 import Issue from './models/issue';
@@ -17,6 +18,7 @@ const app = express();
 const router = express.Router();
 const port = 4000;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 router.route('/issues').get((req, res) => {
