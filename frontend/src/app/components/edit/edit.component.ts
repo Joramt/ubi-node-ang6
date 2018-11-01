@@ -35,7 +35,6 @@ export class EditComponent implements OnInit {
       this.id = params.id;
       this.issueService.getIssueById(this.id).subscribe(res => {
         this.issue = res;
-        console.log(this.issue);
         this.updateForm.get('title').setValue(this.issue.title);
         this.updateForm.get('severity').setValue(this.issue.severity);
         this.updateForm.get('assigned_to').setValue(this.issue.assigned_to);

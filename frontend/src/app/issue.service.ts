@@ -36,9 +36,6 @@ export class IssueService {
   }
 
   public updateIssue(id, title, assigned_to, description, severity, status){
-    console.log(assigned_to);
-    console.log(severity);
-
     const issue = {
       id : id,
       title : title,
