@@ -22,30 +22,37 @@ export class IssueService {
     return this.http.get(`${this.endpoint_url}/issues/${id}`);
   }
 
-  public addIssue(title, responsible, description, severity, status){
-    
+  public addIssue(title, assigned_to, description, severity, status){
+
     const issue = {
       title : title,
-      responsible : responsible,
+      assigned_to : assigned_to,
       description : description,
       severity : severity,
       status : status
     }
 
-    return this.http.post(`${this.endpoint_url}/issue/add`, issue);
+    return this.http.post(`${this.endpoint_url}/issues/create`, issue);
   }
 
-  public updateIssue(id, title, responsible, description, severity, status){
+  public updateIssue(id, title, assigned_to, description, severity, status){
+    console.log(assigned_to);
+    console.log(severity);
+
     const issue = {
       id : id,
       title : title,
-      responsible : responsible,
+      assigned_to : assigned_to,
       description : description,
       severity : severity,
       status : status,
     }
 
-    return this.http.post(`${this.endpoint_url}/issue/update/${id}`, issue);
+    return this.http.post(`${this.endpoint_url}/issues/update/${id}`, issue);
+  }
+
+  public updateIssueWhole(issue){
+    return this.http.post(`${this.endpoint_url}/issues/update/${issue.id}`, issue);
   }
 
   public deleteIssue(id){

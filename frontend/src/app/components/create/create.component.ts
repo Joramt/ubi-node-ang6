@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import { Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-create',
@@ -8,22 +11,28 @@ import { IssueService } from '../../issue.service';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private issueService: IssueService) { }
+  createForm: FormGroup;
 
+  constructor(private issueService: IssueService, private router: Router, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    this.createForm = this.formBuilder.group({
+      title : ['', Validators.required],
+      assigned : ['', Validators.required],
+      description : "",
+      severity : "",
+      status : ""
+    });
+  }
+  
+
+  public addIssue(title, assigned_to, description, severity, status){
+    this.issueService.addIssue(title, assigned_to, description, severity, status).subscribe(()=>{
+      this.snackBar.open('Created the new issue " ' + title + ' "', 'OK', { duration : 2500 }).afterDismissed().subscribe(()=>{
+        this.router.navigate(['/list']);
+      });
+    })
+  }
   
   ngOnInit() {
-
-    const issue = {
-      title : 'An hardcoded issue from front end',
-      assigned_to : 'anyone who wants',
-      description : 'This is an hardcoded issue sent using our newly Issue services',
-      status : 'Open',
-      severity : 3
-    }
-
-    var { title, assigned_to, description, status, severity } = issue;
-
-    this.issueService.addIssue(title, assigned_to, description, severity, status);
 
   }
 

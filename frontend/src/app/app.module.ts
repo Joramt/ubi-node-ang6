@@ -2,14 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material';
 
-import { AppComponent } from './app.component';
+import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatSelectModule, 
+        MatIconModule, MatButtonModule, MatTableModule, MatDividerModule, 
+        MatOptionModule, MatSnackBarModule, MatCardModule } from '@angular/material';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
 import { CreateComponent } from './components/create/create.component';
 import { EditComponent } from './components/edit/edit.component';
 import { IssueService } from './issue.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
@@ -30,8 +34,20 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     MatToolbarModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatDividerModule,
+    MatOptionModule,
+    MatSnackBarModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule 
   ],
   providers: [IssueService],
   bootstrap: [AppComponent]

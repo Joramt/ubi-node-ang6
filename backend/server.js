@@ -62,7 +62,13 @@ router.route('/issues/update/:id').post((req, res) => {
     if(!issue){
       return next(new Error("Couldnt load the request issue"))
     } else {
-      issue = new_issue;
+      
+      issue.title = req.body.title;
+      issue.assigned_to = req.body.assigned_to;
+      issue.severity = req.body.severity;
+      issue.description = req.body.description;
+      issue.status = req.body.status;
+      
       issue.save()
            .then(issue => {
              res.status(200).json('Successfully updated ' + req.params.id + ' issue');

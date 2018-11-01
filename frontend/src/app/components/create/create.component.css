@@ -1,0 +1,28 @@
+mat-form-field.field-full-width {
+    width:100%;
+}
+
+.create-form {
+    min-width:150px;
+    width: 100%;
+}
+
+.mat-card{
+    width: 60%;
+    margin: 20px auto;
+}
+
+@media only screen and (max-width: 720px){
+    .mat-card{
+        width: 90%;
+        margin: 20px auto;
+    }
+} 
+.form-control-inputs {
+    text-align:right;
+}
+
+.color-success {
+    background-color: #4CAF50;
+    color : #fff;
+}

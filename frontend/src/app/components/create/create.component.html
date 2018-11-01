@@ -1,3 +1,42 @@
-<p>
-  create works!
-</p>
+<div>
+  <mat-card>
+    <section class="mat-typography">
+      <div class="d-inline-block">
+        <button mat-raised-button color="accent" routerLink="/list">Back</button>     
+      </div>
+      <h3 class="col-5 d-inline-block">Create a new Issue</h3>
+
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="createForm" class="create-form">
+      <mat-form-field class="field-full-width">
+        <input matInput placeholder="Issue title" formControlName="title" #title>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+          <input matInput placeholder="Assigned to" formControlName="assigned" #assigned>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+          <mat-select placeholder="Status" formControlName="status" #status>
+            <mat-option value="Open">Open</mat-option>
+            <mat-option value="In Progress">In Progress</mat-option>
+            <mat-option value="Closed">Closed</mat-option>
+          </mat-select>
+        </mat-form-field>
+      <mat-form-field class="field-full-width">
+          <textarea matInput placeholder="Description" formControlName="description" #description></textarea>
+      </mat-form-field>
+      <mat-form-field class="field-full-width">
+        <mat-select placeholder="Severity" formControlName="severity" #severity>
+          <mat-option value="Low">Low</mat-option>
+          <mat-option value="Medium">Medium</mat-option>
+          <mat-option value="High">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-divider></mat-divider>
+      <br>
+      <br>
+        <button class="col-3 color-success" type="submit" (click)="addIssue(title.value, assigned.value, description.value, severity.value, status.value)" [disabled]="createForm.invalid" mat-raised-button>Save</button>
+   </form>
+  </mat-card>
+</div>

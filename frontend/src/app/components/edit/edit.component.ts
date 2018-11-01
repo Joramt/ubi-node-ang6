@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { Issue } from '../../issue.model';
 
 @Component({
   selector: 'app-edit',
@@ -8,22 +12,46 @@ import { IssueService } from '../../issue.service';
 })
 export class EditComponent implements OnInit {
 
-  constructor(private issueService: IssueService) { }
+  id : String;
+  issue: any = {};
+  updateForm: FormGroup;
 
-  ngOnInit() {
-    const issue = {
-      id : 'EDIT ME',
-      title : 'An hardcoded issue updated from front end',
-      assigned_to : 'anyone who wants',
-      description : 'This is an hardcoded issue updated using our newly Issue services',
-      status : 'Open',
-      severity : 3
-    }
-
-    var { id, title, assigned_to, description, status, severity } = issue;
-
-    this.issueService.updateIssue(id, title, assigned_to, description, severity, status);
-
+  constructor(private issueService: IssueService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+    this.createForm();
   }
 
+  private createForm(){
+    this.updateForm = this.formBuilder.group({
+      title : ['', Validators.required],
+      assigned_to : ['', Validators.required],
+      description : "",
+      severity : "",
+      status : ""
+    });  
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+      this.issueService.getIssueById(this.id).subscribe(res => {
+        this.issue = res;
+        console.log(this.issue);
+        this.updateForm.get('title').setValue(this.issue.title);
+        this.updateForm.get('severity').setValue(this.issue.severity);
+        this.updateForm.get('assigned_to').setValue(this.issue.assigned_to);
+        this.updateForm.get('status').setValue(this.issue.status);
+        this.updateForm.get('description').setValue(this.issue.description);
+      });
+    });
+  }
+
+  updateIssue(title, assigned_to, description, severity, status){
+
+    this.issueService.updateIssue(this.id, title, assigned_to, description, severity, status).subscribe(()=>{
+      this.snackBar.open('Issue "' + this.issue.title + '" ( ID ' + this.id + ') correctly updated.', 'OK', { duration : 2500 }).afterDismissed().subscribe(()=>{
+        this.router.navigate(['/list']);
+      });
+    });
+  }
+  
 }
